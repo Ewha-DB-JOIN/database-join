@@ -130,11 +130,39 @@ git push origin feature/req05-insert-product
 
 ## 커밋 메시지 규칙
 
+### 형식
+
 ```
-feat: [REQ05] 상품 INSERT 메뉴 구현
-fix:  [REQ10] PreparedStatement 누락 수정
-sql:  [REQ02] 뷰 2개 추가
-docs: ERD 업데이트
+<타입>: [REQ##] <변경 내용>
+```
+
+### 타입 목록
+
+| 타입 | 사용 상황 | 예시 |
+|------|----------|------|
+| `feat` | 새 기능 구현 | `feat: [REQ5] 상품 INSERT 메뉴 구현` |
+| `fix` | 버그 수정 | `fix: [REQ10] PreparedStatement 누락 수정` |
+| `sql` | SQL 파일 변경 | `sql: [REQ2] SalesView 뷰 추가` |
+| `docs` | 문서 작업 | `docs: ERD 다이어그램 업데이트` |
+| `refactor` | 코드 구조 개선 (기능 변경 없음) | `refactor: DBUtil 예외처리 정리` |
+| `chore` | 빌드/설정 변경 | `chore: .gitignore에 .env 추가` |
+
+### 규칙
+
+- REQ 번호가 있는 작업은 반드시 `[REQ##]` 포함 (예: `[REQ5]`, `[REQ13]`)
+- 한 커밋에 하나의 논리적 변경만 포함
+- 메시지는 한국어 또는 영어 통일 (팀 내 결정)
+- `main` 브랜치에 직접 커밋 금지 — 반드시 PR 사용
+
+### 예시
+
+```bash
+feat: [REQ5] 주문 INSERT 메뉴 구현
+feat: [REQ6] 고객별 매출 조회 메뉴 (JOIN + VIEW)
+feat: [REQ13] 단가 변경 전후 매출 분석 메뉴
+fix:  [REQ12] UPDATE 트랜잭션 롤백 누락 수정
+sql:  [REQ11] 상품 인덱스 및 SalesSummaryView 추가
+docs: 제안서 초안 추가
 ```
 
 ---
