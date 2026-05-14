@@ -1,96 +1,224 @@
-# JOIN - 데이터베이스 팀 프로젝트
+# [팀명] Database Team Project
 
-이화여대 데이터베이스 과목 팀 프로젝트 레포지토리입니다.
+이화여대 데이터베이스 팀 프로젝트 — Java + JDBC + MySQL HeatWave
+
+---
+
+## 프로젝트 정보
+
+| 항목 | 내용 |
+|------|------|
+| 주제 | (TBD - 팀 결정 후 작성) |
+| 제출 마감 | **2025-06-09 23:59** |
+| 제안서 마감 | **2025-05-30 23:59** |
+| 발표 | 2025-06-11 (수업 시간) |
+
+---
 
 ## 개발 환경
 
 | 항목 | 버전 |
 |------|------|
-| JDK | 17 (또는 팀 내 통일 버전으로 수정) |
-| MySQL | 8.0 |
+| JDK | 17 |
+| MySQL | Oracle MySQL HeatWave (Free tier) |
 | JDBC Driver | mysql-connector-j-8.x.x.jar |
 | IDE | IntelliJ IDEA / Eclipse |
 
+---
+
 ## 시작하기
 
-### 1. JDBC 드라이버 설치
-`lib/` 폴더에 `mysql-connector-j-8.x.x.jar` 파일을 넣고 IDE에서 classpath에 추가하세요.
+### 1. JDBC 드라이버
+`lib/` 폴더에 `mysql-connector-j-8.x.x.jar` 파일을 넣고 IDE classpath에 추가하세요.
 - 다운로드: https://dev.mysql.com/downloads/connector/j/ (Platform Independent 선택)
 
 ### 2. DB 연결 설정
-`src/util/DBUtil.java` 파일을 열어 아래 3가지를 본인 환경에 맞게 수정하세요:
+`src/util/DBUtil.java` 에서 본인 환경에 맞게 수정:
 ```java
-private static final String DB_URL  = "jdbc:mysql://localhost:3306/join_db?...";
-private static final String DB_USER = "root";           // 본인 MySQL 계정
-private static final String DB_PASS = "your_password";  // 본인 MySQL 비밀번호
+private static final String DB_URL  = "jdbc:mysql://<HOST>:3306/<DB_NAME>?useSSL=true&serverTimezone=Asia/Seoul";
+private static final String DB_USER = "your_mysql_user";
+private static final String DB_PASS = "your_mysql_password";
 ```
-> ⚠ `DBUtil.java`의 비밀번호는 절대 커밋하지 마세요.
+> ⚠ DB 비밀번호는 절대 커밋하지 마세요. `DBUtil.java`는 로컬에서만 수정하세요.
 
 ### 3. DB 스키마 초기화
 MySQL Workbench 또는 CLI에서 순서대로 실행:
 ```
-1. sql/dropschema.sql   (기존 테이블 삭제)
-2. sql/createschema.sql (테이블 생성)
-3. sql/initdata.sql     (초기 데이터 삽입)
+1. sql/dropschema.sql    -- 기존 테이블 삭제 (⚠ 데이터 전부 삭제됨)
+2. sql/createschema.sql  -- 테이블 / 뷰 / 인덱스 생성
+3. sql/initdata.sql      -- 초기 데이터 삽입
 ```
+> ⚠ `USE DATABASE` 구문은 SQL 파일에 포함하지 않습니다 (제출 요건).
+
+### 4. 실행
+```bash
+java -jar join-app.jar
+```
+또는 IDE에서 `src/Main.java`를 직접 실행하세요.
+
+---
 
 ## 폴더 구조
 
 ```
-├── sql/            # SQL 파일 (스키마, 초기 데이터)
+├── sql/
+│   ├── createschema.sql   # 테이블, 뷰, 인덱스 생성 [REQ1][REQ2][REQ3][REQ11]
+│   ├── initdata.sql       # 초기 데이터 삽입 (각 테이블 10~100 튜플) [REQ4]
+│   └── dropschema.sql     # 전체 테이블 삭제
 ├── src/
-│   ├── Main.java   # 메인 진입점 (메뉴)
-│   └── util/
-│       └── DBUtil.java  # DB 연결 유틸리티
-├── lib/            # JDBC .jar 파일 (각자 추가, gitignore 아님)
-├── docs/           # 제안서, ERD, 설계 문서
-└── README.md
+│   ├── Main.java          # 메인 진입점 (텍스트 메뉴) [REQ15]
+│   ├── util/
+│   │   └── DBUtil.java    # DB 연결 싱글톤
+│   └── menu/              # 각 메뉴 기능 클래스 (팀원별 구현)
+├── lib/                   # JDBC .jar (각자 로컬에 추가)
+├── docs/                  # 제안서, ERD, 설계 문서 [REQ20]
+└── README.md              # [REQ19]
 ```
+
+---
+
+## 요구사항 체크리스트
+
+| REQ | 내용 | 담당 | 상태 |
+|-----|------|------|------|
+| REQ1 | HW2-1 스키마 확장 및 변경 | - | ⬜ |
+| REQ2 | 테이블 7개 이상 + 뷰 2개 | - | ⬜ |
+| REQ3 | FK, PK, 인덱스 포함 | - | ⬜ |
+| REQ4 | 각 테이블 10~100 튜플 | - | ⬜ |
+| REQ5 | INSERT 메뉴 2개 (사용자 입력) | - | ⬜ |
+| REQ6 | SELECT 메뉴 2개 (사용자 입력 + JOIN + VIEW) | - | ⬜ |
+| REQ7 | SELECT 메뉴 2개 (사용자 입력 + 집계 + GROUP BY) | - | ⬜ |
+| REQ8 | UPDATE 메뉴 2개 (사용자 입력) | - | ⬜ |
+| REQ9 | DELETE 메뉴 2개 (사용자 입력) | - | ⬜ |
+| REQ10 | PreparedStatement 사용 (사용자 입력 시) | - | ⬜ |
+| REQ11 | 스키마에 뷰 + 인덱스 포함 | - | ⬜ |
+| REQ12 | UPDATE 트랜잭션 처리 | - | ⬜ |
+| REQ13 | 상품 단가 변경 시 과거 매출 유지 + 분석 메뉴 | - | ⬜ |
+| REQ14 | 고객 정보 변경 시 변경 전후 매출 분석 메뉴 | - | ⬜ |
+| REQ15 | 텍스트 기반 UI | - | ⬜ |
+| REQ16 | SQL 스크립트 3종 제출 | - | ⬜ |
+| REQ17 | Java 소스코드 (.java) 제출 | - | ⬜ |
+| REQ18 | 실행 가능한 .jar 파일 제출 | - | ⬜ |
+| REQ19 | README (실행 방법, 메인 클래스명) | - | ⬜ |
+| REQ20 | 보고서 (ER다이어그램, 코드 설명, 실행 캡처, REQ 충족 설명) | - | ⬜ |
+
+---
 
 ## 브랜치 전략
 
 ```
-main      ← 최종 제출용 (PR + PM 승인 필수)
-  └── develop  ← 기능 통합 브랜치
-        └── feature/req##-기능명  ← 개인 작업 브랜치
+main       ← 최종 제출용 (PR + PM 승인 필수, 직접 push 금지)
+  └── develop   ← 기능 통합 브랜치
+        └── feature/req##-기능명   ← 개인 작업 브랜치
 ```
 
-**절대 `main`에 직접 push하지 마세요.**
-
-## 커밋 메시지 규칙
-
-```
-feat: [REQ10] 로그인 기능 구현
-fix:  [REQ05] 쿼리 오류 수정
-docs: ERD 업데이트
-sql:  [REQ03] 테이블 컬럼 추가
-```
-
-## 작업 흐름
-
+**작업 흐름:**
 ```bash
 # 1. develop 최신화
 git checkout develop && git pull origin develop
 
 # 2. 내 브랜치 생성
-git checkout -b feature/req10-login
+git checkout -b feature/req05-insert-product
 
 # 3. 작업 후 커밋
-git add src/LoginService.java
-git commit -m "feat: [REQ10] 로그인 기능 구현"
+git add src/menu/InsertMenu.java
+git commit -m "feat: [REQ5] 상품 INSERT 메뉴 구현"
 
-# 4. develop에 PR 생성 (GitHub에서)
-git push origin feature/req10-login
+# 4. GitHub에서 develop으로 PR 생성
+git push origin feature/req05-insert-product
 ```
 
-## 팀원
+## 커밋 메시지 규칙
 
-| 이름 | 담당 REQ | 브랜치 |
-|------|----------|--------|
-| (PM) | - | - |
-| 팀원2 | REQ?? | feature/req??-... |
-| 팀원3 | REQ?? | feature/req??-... |
-| 팀원4 | REQ?? | feature/req??-... |
-| 팀원5 | REQ?? | feature/req??-... |
-| 팀원6 | REQ?? | feature/req??-... |
-| 팀원7 | REQ?? | feature/req??-... |
+### 형식
+
+```
+<타입>: [REQ##] <변경 내용>
+```
+
+### 타입 목록
+
+| 타입 | 사용 상황 | 예시 |
+|------|----------|------|
+| `feat` | 새 기능 구현 | `feat: [REQ5] 상품 INSERT 메뉴 구현` |
+| `fix` | 버그 수정 | `fix: [REQ10] PreparedStatement 누락 수정` |
+| `sql` | SQL 파일 변경 | `sql: [REQ2] SalesView 뷰 추가` |
+| `docs` | 문서 작업 | `docs: ERD 다이어그램 업데이트` |
+| `refactor` | 코드 구조 개선 (기능 변경 없음) | `refactor: DBUtil 예외처리 정리` |
+| `chore` | 빌드/설정 변경 | `chore: .gitignore에 .env 추가` |
+
+### 규칙
+
+- REQ 번호가 있는 작업은 반드시 `[REQ##]` 포함 (예: `[REQ5]`, `[REQ13]`)
+- 한 커밋에 하나의 논리적 변경만 포함
+- 메시지는 한국어 또는 영어 통일 (팀 내 결정)
+- `main` 브랜치에 직접 커밋 금지 — 반드시 PR 사용
+
+### 예시
+
+```bash
+feat: [REQ5] 주문 INSERT 메뉴 구현
+feat: [REQ6] 고객별 매출 조회 메뉴 (JOIN + VIEW)
+feat: [REQ13] 단가 변경 전후 매출 분석 메뉴
+fix:  [REQ12] UPDATE 트랜잭션 롤백 누락 수정
+sql:  [REQ11] 상품 인덱스 및 SalesSummaryView 추가
+docs: 제안서 초안 추가
+```
+
+## PR(Pull Request) 규칙
+
+### PR 제목 형식
+
+```
+[브랜치명] 작업 내용 요약
+```
+
+예시:
+```
+[feature/req05-insert] REQ5 상품 INSERT 메뉴 구현
+[develop] 초기 프로젝트 세팅 merge
+```
+
+### PR 본문 템플릿
+
+```
+## 작업 내용
+- 구현하거나 변경한 내용을 bullet point로 작성
+
+## 관련 REQ
+- [REQ##] 내용
+
+## 체크리스트
+- [ ] 로컬에서 정상 실행 확인
+- [ ] SQL 파일 변경 시 dropschema → createschema → initdata 순서 확인
+- [ ] DB 비밀번호 등 개인 정보 커밋 안 됨 확인
+```
+
+### 규칙
+
+- `feature/*` → `develop` : 본인 작업 완료 후 PR, 팀원 1명 이상 리뷰
+- `develop` → `main` : PM(본인) 최종 확인 후 merge, 제출 직전에만 사용
+
+---
+
+## 팀원 및 담당
+
+| 이름 | 담당 REQ | 담당 테이블 |
+|------|----------|------------|
+| (PM) | REQ1, 전체 관리 | 스키마 설계 |
+| 팀원2 | REQ?? | 테이블명 |
+| 팀원3 | REQ?? | 테이블명 |
+| 팀원4 | REQ?? | 테이블명 |
+| 팀원5 | REQ?? | 테이블명 |
+| 팀원6 | REQ?? | 테이블명 |
+| 팀원7 | REQ?? | 테이블명 |
+
+---
+
+## 주요 일정
+
+| 날짜 | 마일스톤 |
+|------|---------|
+| 2025-05-30 | 제안서 제출 (주제, 역할, 일정) |
+| 2025-06-09 | 최종 제출 (SQL, .java, .jar, README, 보고서) |
+| 2025-06-11 | 발표 및 데모 (영어 발표, 5분+) |
