@@ -165,6 +165,40 @@ sql:  [REQ11] 상품 인덱스 및 SalesSummaryView 추가
 docs: 제안서 초안 추가
 ```
 
+## PR(Pull Request) 규칙
+
+### PR 제목 형식
+
+```
+[브랜치명] 작업 내용 요약
+```
+
+예시:
+```
+[feature/req05-insert] REQ5 상품 INSERT 메뉴 구현
+[develop] 초기 프로젝트 세팅 merge
+```
+
+### PR 본문 템플릿
+
+```
+## 작업 내용
+- 구현하거나 변경한 내용을 bullet point로 작성
+
+## 관련 REQ
+- [REQ##] 내용
+
+## 체크리스트
+- [ ] 로컬에서 정상 실행 확인
+- [ ] SQL 파일 변경 시 dropschema → createschema → initdata 순서 확인
+- [ ] DB 비밀번호 등 개인 정보 커밋 안 됨 확인
+```
+
+### 규칙
+
+- `feature/*` → `develop` : 본인 작업 완료 후 PR, 팀원 1명 이상 리뷰
+- `develop` → `main` : PM(본인) 최종 확인 후 merge, 제출 직전에만 사용
+
 ---
 
 ## 팀원 및 담당
