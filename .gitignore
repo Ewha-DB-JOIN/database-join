@@ -1,0 +1,29 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse
+.settings/
+.classpath
+.project
+bin/
+
+# Compiled Java
+*.class
+
+# Build output
+target/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Personal DB config (create your own DBConfig.java locally, DO NOT commit)
+src/config/DBConfig.java
+
+# Log files
+*.log

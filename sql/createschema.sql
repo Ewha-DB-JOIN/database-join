@@ -1,0 +1,13 @@
+-- ============================================================
+-- CREATE SCHEMA
+-- 실행 순서: 1. dropschema.sql → 2. createschema.sql → 3. initdata.sql
+-- ============================================================
+
+-- TODO: 여기에 CREATE TABLE 문을 작성하세요
+-- 예시:
+-- CREATE TABLE users (
+--     user_id   INT PRIMARY KEY AUTO_INCREMENT,
+--     username  VARCHAR(50) NOT NULL UNIQUE,
+--     password  VARCHAR(255) NOT NULL,
+--     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+-- );
