@@ -104,6 +104,46 @@ java -jar join-app.jar
 
 ---
 
+## 이슈(Issue) & 프로젝트 관리
+
+### 이슈 기반 작업 관리
+
+모든 작업은 **GitHub Issue** 단위로 관리합니다. REQ1~REQ20에 해당하는 이슈가 이미 생성되어 있습니다.
+
+- 이슈 확인: [Issues 탭](https://github.com/Ewha-DB-JOIN/database-join/issues)
+- 프로젝트 보드: [DB-Team-Project-Management](https://github.com/orgs/Ewha-DB-JOIN/projects/1)
+
+### 작업 시작 전 필수 절차
+
+1. 담당 이슈를 열고 본인을 **Assignee**로 지정
+2. 프로젝트 보드에서 해당 이슈를 **In Progress**로 변경
+3. 이슈 번호를 확인하고 브랜치 생성 (`feature/req##-기능명`)
+
+### 프로젝트 보드 필드
+
+| 필드 | 용도 | 값 예시 |
+|------|------|---------|
+| **Status** | 진행 상태 | Todo / In Progress / Review / Done |
+| **Assignees** | 담당자 | 팀원 GitHub 계정 |
+| **Requirement ID** | REQ 번호 | REQ5, REQ13 |
+| **Category** | 작업 분류 | DB 설계 / Java 구현 / 문서화 / 테스트 |
+| **Due Date** | 마감일 | 2025-06-09 |
+
+### 자동화 워크플로우
+
+아래 동작은 자동으로 처리됩니다:
+
+| 이벤트 | 자동 처리 |
+|--------|----------|
+| 이슈가 프로젝트에 추가됨 | Status → `Todo` 자동 설정 |
+| 이슈가 Close됨 | Status → `Done` 자동 이동 |
+| PR이 Merge됨 | 연결된 이슈 자동 Close |
+
+> PR 본문에 `Closes #이슈번호` 를 포함하면 PR merge 시 이슈가 자동으로 닫힙니다.
+> 예: `Closes #5` → REQ5 이슈 자동 Close
+
+---
+
 ## 브랜치 전략
 
 ```
@@ -188,10 +228,14 @@ docs: 제안서 초안 추가
 ## 관련 REQ
 - [REQ##] 내용
 
+## 이슈 연결 (자동 Close)
+Closes #이슈번호
+
 ## 체크리스트
 - [ ] 로컬에서 정상 실행 확인
 - [ ] SQL 파일 변경 시 dropschema → createschema → initdata 순서 확인
 - [ ] DB 비밀번호 등 개인 정보 커밋 안 됨 확인
+- [ ] 프로젝트 보드 Status → Review 로 변경
 ```
 
 ### 규칙
