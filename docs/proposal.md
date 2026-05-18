@@ -65,8 +65,7 @@ HW2-1의 기본 스키마(`product`, `customer`, `store`, `sales`, `market_baske
 | INSERT ② | 구독 등록 (회원 ID, 플랜 ID 입력) | 이태영 |
 | SELECT ① | 장르 입력 → 해당 장르 콘텐츠 시청 통계 조회 (VIEW + JOIN) | 곽성은 |
 | SELECT ② | 회원 ID 입력 → 구독·결제 이력 조회 (VIEW + JOIN) | 하지수 |
-| SELECT ③ | 연도 입력 → 월별 구독 매출 합계 및 ARPU (GROUP BY) |
-곽성은 |
+| SELECT ③ | 연도 입력 → 월별 구독 매출 합계 및 ARPU (GROUP BY) | 곽성은 |
 | SELECT ④ | 장르 입력 → 장르별 평균 시청시간 및 콘텐츠 수 (GROUP BY) | 최보경 |
 | UPDATE ① | 플랜 가격 변경 (플랜 ID, 새 가격 입력) — 트랜잭션 처리 | 조수민 |
 | UPDATE ② | 구독 플랜 변경 (구독 ID, 새 플랜 ID 입력) | 이태영 |
